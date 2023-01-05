@@ -33,3 +33,4 @@ SELECT name, price, popularity
 FROM fragrance_store
 ORDER BY popularity DESC
 LIMIT 5;
+
