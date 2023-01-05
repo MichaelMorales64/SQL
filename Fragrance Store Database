@@ -29,7 +29,7 @@ FROM fragrance_store
 WHERE section = 'womens';
 
 --What are the 5 most popular fragrances?
-SELECT item, price, popularity
+SELECT name, price, popularity
 FROM fragrance_store
 ORDER BY popularity DESC
 LIMIT 5;
