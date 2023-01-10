@@ -1,0 +1,62 @@
+# For this project, I downloaded NBA data from Kaggle.
+# Then I created a table to insert NBA data into.
+# Finally, I performed analytics on the data using SQL. 
+
+#Creating the table:
+CREATE TABLE players(
+   Player            TEXT,
+   Team              TEXT,
+   Conference        TEXT,
+   Date              TEXT,
+   Position          TEXT,
+   Height            TEXT,
+   Weight            INTEGER,
+   Age               INTEGER,
+   Draft_Year        INTEGER,
+   Seasons_in_league INTEGER,
+   Season            TEXT,
+   Season_short      INTEGER,
+   Predraft_Team     TEXT,
+   Real_value        REAL,
+   Height_CM         INTEGER,
+   Weight_KG         INTEGER,
+   Last_Season       INTEGER
+);
+
+#Then I inserted the NBA Data .csv into the table.
+
+#Next, I explored the data using the following SQL. 
+
+--What is the minimum height of an nba player?
+SELECT MIN(Height) AS min_height
+FROM players;
+
+--What is the avg height of nba players drafted in the year 2014?
+SELECT Draft_year,
+AVG(Height) AS avg_height
+FROM players
+WHERE Draft_year = '2014';
+
+--Which teams had the most players drafted? 
+SELECT Predraft_Team, COUNT(*)
+FROM players
+GROUP BY Predraft_Team
+ORDER BY COUNT(*) DESC
+LIMIT 5;
+
+--List the players who had more than 5 seasons in the league.
+SELECT Player, Seasons_in_league
+FROM players
+GROUP BY Player
+HAVING Seasons_in_league > 5
+ORDER BY Seasons_in_league DESC
+LIMIT 5;
+
+--Make a height class to differentiate between the players heights.
+SELECT Player, Height_CM, CASE 
+WHEN Height_CM >= 195 THEN 'Very Tall'
+WHEN Height_CM >= 180 THEN 'Tall'
+ELSE 'Short'
+END AS Height_class
+FROM players
+LIMIT 10;
