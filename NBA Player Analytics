@@ -1,0 +1,61 @@
+# For this project, I downloaded NBA data from Kaggle.
+# Then I created a table to insert NBA data into.
+# Finally, I performed analytics on the data using SQL. 
+
+#Creating the table:
+CREATE TABLE players(
+   Player            TEXT,
+   Team              TEXT,
+   Conference        TEXT,
+   Date              TEXT,
+   Position          TEXT,
+   Height            TEXT,
+   Weight            INTEGER,
+   Age               INTEGER,
+   Draft_Year        INTEGER,
+   Seasons_in_league INTEGER,
+   Season            TEXT,
+   Season_short      INTEGER,
+   Predraft_Team     TEXT,
+   Real_value        REAL,
+   Height_CM         INTEGER,
+   Weight_KG         INTEGER,
+   Last_Season       INTEGER
+);
+
+#Then I inserted the NBA Data .csv into the table.
+
+#Next, I explored the data using the following SQL. 
+
+--What is the avg height of nba players drafted in the year 2014?
+SELECT Draft_year,
+AVG(Height) AS avg_height
+FROM players
+WHERE Draft_year = '2014';
+
+--Make a height class to differentiate between the players heights
+SELECT Player, Height_CM, CASE 
+WHEN Height_CM >= 195 THEN 'Very Tall'
+WHEN Height_CM >= 180 THEN 'Tall'
+ELSE 'Short'
+END AS Height_class
+FROM players
+LIMIT 10;
+
+--What is the average weight of players in each conference?
+SELECT Conference, AVG(Weight_KG) AS avg_weight
+FROM players
+WHERE Conference IS NOT NULL
+GROUP BY Conference;
+
+--Which team has the highest average height of players?
+SELECT Team, AVG(Height_CM) AS avg_height
+FROM players
+GROUP BY Team
+ORDER BY AVG(Height_CM) DESC
+LIMIT 1;
+
+--What is the average number of seasons played for players in each position?
+SELECT Position, AVG(Seasons_in_league) AS avg_seasons
+FROM players
+GROUP BY Position;
