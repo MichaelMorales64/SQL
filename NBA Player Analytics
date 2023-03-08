@@ -59,3 +59,37 @@ LIMIT 1;
 SELECT Position, AVG(Seasons_in_league) AS avg_seasons
 FROM players
 GROUP BY Position;
+
+--What is the average age of players in each conference?
+SELECT Conference, AVG(Age) AS avg_age
+FROM players
+WHERE Conference IS NOT NULL
+GROUP BY Conference;
+
+--What is the average weight of players in each position?
+SELECT Position, AVG(Weight_KG) AS avg_weight
+FROM players
+GROUP BY Position;
+
+--What is the average height of players in each position?
+SELECT Position, AVG(Height_CM) AS avg_height
+FROM players
+GROUP BY Position;
+
+--What is the total number of players in each draft year?
+SELECT Draft_year, COUNT(Player) AS total_players
+FROM players
+GROUP BY Draft_year;
+
+--Which team has the highest number of players in the database?
+SELECT Team, COUNT(Player) AS total_players
+FROM players
+GROUP BY Team
+ORDER BY COUNT(Player) DESC
+LIMIT 1;
+
+--What is the average number of seasons played for players in each draft year?
+SELECT Draft_year, AVG(Seasons_in_league) AS avg_seasons
+FROM players
+GROUP BY Draft_year;
+
